@@ -2,7 +2,7 @@ var breeds = ["Doberman", "Schnauzer", "Pit Bull", "Poodle", "Black Labrador"];
 
 function renderButtons() {
 
-    $("#dog-view").empty();  //clear buttons
+    $("#dog-view").empty(); 
 
     for (var i = 0; i < breeds.length; i++) {
         var button = $('<button>');
@@ -12,13 +12,12 @@ function renderButtons() {
         button.addClass("ml-2");
         button.addClass("mt-2")
 
-        $("#dog-view").append(button);   // add buttons
+        $("#dog-view").append(button);   
     }
 }
 
-function playStopGifs() {  // swap urls 
+function playStopGifs() {  
 
-    // alert("click works swap url");
 
     var stillGif = $(this).attr("data-name-1");
     var movingGif = $(this).attr("data-name-2");
@@ -30,7 +29,7 @@ function playStopGifs() {  // swap urls
         $(this).attr("src", stillGif)
     }
 
-    //alert( stillGif + " 2  " +   movingGif )
+
 }
 
 function showDogs() {
@@ -46,7 +45,7 @@ function showDogs() {
         var appendRow;
         for (var i = 0; i < response.data.length; i++) {
 
-            if (i == 0 || (i) % 3 == 0)  // create new row at beginning and every 3rd item
+            if (i == 0 || (i) % 3 == 0)  
             {
                 appendRow = $("<div class='row'></div>").appendTo("#dog-gifs");
             }
@@ -54,7 +53,7 @@ function showDogs() {
             var temp = response.data[i];
             console.log(response)
 
-            var colBS = $("<div class='col-sm'>  </div>").appendTo(appendRow); //create new column everytime and append to row
+            var colBS = $("<div class='col-sm'>  </div>").appendTo(appendRow); 
 
             var stillGifUrl = (temp.images["fixed_height_still"].url).replace(/^http:\/\//i, 'https://');;
             var movingGifUrl = (temp.images["fixed_height"].url).replace(/^http:\/\//i, 'https://');
@@ -63,33 +62,33 @@ function showDogs() {
             var p = $("<p>")
             p.text(temp.rating);
             var img = $('<img />');
-            img.attr("src", stillGifUrl);           // static image     
-            img.attr("data-name-1", stillGifUrl);    // moving image
+            img.attr("src", stillGifUrl);               
+            img.attr("data-name-1", stillGifUrl);    
             img.attr("data-name-2", movingGifUrl);
             img.addClass("dogGifs");
 
             animalDiv.append(p);
             animalDiv.append(img);
 
-            colBS.append(animalDiv); // append animal div to every column no matter what
+            colBS.append(animalDiv); 
         }
 
     });
 };
 
-$("#add-dog-breed").on("click", function (event) {   //add button on click
+$("#add-dog-breed").on("click", function (event) {   
     event.preventDefault();
     var dog = $("#dog-input").val().trim();
     if (dog != "") {
-        breeds.push(dog);               //no empty buttons
+        breeds.push(dog);               
     }
 
     $("#dog-input").val("");
 
-    // build buttons
+   
     renderButtons();
 });
 
-$(document).on("click", ".dogs", showDogs);    //anything with a dog class calls showDogs methods
+$(document).on("click", ".dogs", showDogs);    
 $(document).on("click", ".dogGifs", playStopGifs);
 renderButtons();
